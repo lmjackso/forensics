@@ -1,18 +1,19 @@
-# Django settings for term_project project.
-
+# Django settings for grumblr project.
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__)) + '/' 
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Lawrence Jackson', 'lmjackso@andrew.cmu.edu'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': PROJECT_ROOT + 'db/DFA.sqlite3',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -29,7 +30,7 @@ ALLOWED_HOSTS = []
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'US/Eastern'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -50,18 +51,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = PROJECT_ROOT + 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = PROJECT_ROOT + 'static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -83,13 +84,21 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'oe@%*q^ipby2m0yh8yt7q0d$gi^_t#ejjp9n-)n2j0culu3nyi'
+SECRET_KEY = '3v3p&m)nd9au-f5jku=@096g49n5a2)99)hd$fphch@!9j+h6&'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PREPROCESSORS = (
+    'django.core.context_preprocessors.auth',
+    'django.core.context_preprocessors.debug',
+    'django.core.context_preprocessors.i18n',
+    'django.core.context_preprocessors.media',
+    'django.core.context_preprocessors.request',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,6 +110,18 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+# Configures Django to merely print emails rather than sending them.
+# Comment out this line to enable real email-sending.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ 
+# To enable real email-sending, you should uncomment and 
+# configure the settings below.
+# EMAIL_HOST = 'Your-SMTP-host'               # perhaps 'smtp.andrew    .cmu.edu'
+# EMAIL_HOST_USER = 'Your-SMTP-username'      # perhaps your Andrew     ID
+# EMAIL_HOST_PASSWORD = 'Your-SMTP-password'
+# EMAIL_USE_TLS = True
+
+
 
 ROOT_URLCONF = 'term_project.urls'
 
@@ -120,6 +141,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'DFA',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -154,3 +176,4 @@ LOGGING = {
         },
     }
 }
+
