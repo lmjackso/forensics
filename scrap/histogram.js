@@ -22,12 +22,14 @@ var margin = {top: 10, right: 30, bottom: 30, left: 30},
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
+    // used math.max to get the greatest value in the range of values
     .domain([0, Math.max.apply(null,values)])
     .range([0, width])
     //.range([0, width]);
 
 // Generate a histogram using twenty uniformly-spaced bins.
 var data = d3.layout.histogram()
+    // number of ticks = number of intervals?
     .bins(x.ticks(20))
     (values);
 
