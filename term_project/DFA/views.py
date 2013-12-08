@@ -1,25 +1,7 @@
-# Create your views here.
-
-from hachoir_core.error import HachoirError
-from hachoir_core.stream import InputIOStream
-from hachoir_parser import guessParser
-from hachoir_metadata import extractMetadata
+import parser
 
 
-def metadata_for_filelike(filelike):
-      try:
-        filelike.seek(0)
-      except (AttributeError, IOError):
-        return None
-
-      stream = InputIOStream(filelike, None, tags=[])
-      parser = guessParser(stream)
-
-      if not parser:
-        return None
-      try:
-        metadata = extractMetadata(parser)
-      except HachoirError:
-        return None
-
-    return metadata
+def home(request):
+  context = {}
+  metadata_map(PROJECT_ROOT)
+  return render(request, 'DFA/test.html', context)

@@ -11,7 +11,7 @@ from pprint import pprint
 from hachoir_metadata import metadata
 from hachoir_core.cmd_line import unicodeFilename
 from hachoir_parser import createParser
-from hacoir_metadata.metadata_item import *
+from hachoir_metadata import *
 
 import os
 import sys
@@ -22,7 +22,25 @@ def metadata_map(filename):
   parser = createParser(filename)
 
   # See what keys you can extract
-  return metadata.extractMetadata(parser, quality=QUALITY_BEST)._Metadata__data
+  return metadata.extractMetadata(parser)._Metadata__data
+
+def get_value(metadata_value):
+  if metadata_value.values:
+    return metadata_value.values[0].value
+  return False
+
+def get_text(metadata_value):
+  if metadata_value.values:
+    return metadata_value.values[0].text
+  return False
+
+def create_list(metadata_map)
+  keyvalue_list = []
+  for k,v in metadata_map.iteritems():
+    if v.values:
+      keyvalue_list += [get_text(v), get_value(v)]
+  return keyvalue_list
+
 
 '''
 def hello(tuple_list)
@@ -61,18 +79,16 @@ def tuple_list(list):
   return tuple_list
 
 def metadata_for_filelike(filelike):
-      try:
-        filelike.seek(0)
-      except (AttributeError, IOError):
-        return None
-
-      stream = InputIOStream(filelike, None, tags=[])
-      parser = guessParser(stream)
-
-      if not parser:
-        return None
-      try:
-        metadata = extractMetadata(parser)
-      except HachoirError:
-        return None
-    return metadata
+  try:
+    filelike.seek(0)
+  except (AttributeError, IOError):
+    return None
+  stream = InputIOStream(filelike, None, tags=[])
+  parser = guessParser(stream)
+  if not parser:
+    return None
+  try:
+    metadata = extractMetadata(parser)
+  except HachoirError:
+    return None
+  return metadata
