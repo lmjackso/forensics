@@ -1,0 +1,60 @@
+.first-element {
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.navbar-inner {
+    background-color: blue;
+}
+
+
+.navbar .nav > li > a:hover {
+    background-color: darkblue;
+}
+
+.status-img{
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.well {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.comment{
+}
+
+.comment-img{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.comment-btn{
+    margin-top: -10px;
+}
+
+.sidebar {
+    padding-top:50px;
+    padding-bottom:30px;
+}
+
+.img-profile{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+p{
+    word-wrap: break-word;
+}
+
+li a{
+    word-wrap: break-word;
+}
+
+.label-info{
+    margin-right:5px;
+}
