@@ -3,5 +3,5 @@ import parser
 
 def home(request):
   context = {}
-  metadata_map(PROJECT_ROOT)
+  map = parse_map_from_directory(dir)
   return render(request, 'DFA/test.html', context)

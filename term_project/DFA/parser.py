@@ -58,6 +58,8 @@ def hello(tuple_list)
   print meta['Video stream #1']['Image width'] # 320 pixels
 '''
 
+
+
 def list_to_parse(rootdir):
   list = []
   for root, subFolders, files in os.walk(rootdir):
@@ -91,4 +93,16 @@ def metadata_for_filelike(filelike):
     metadata = extractMetadata(parser)
   except HachoirError:
     return None
-  return metadata
+  return metadata._Metadata__data
+
+def parse_map_from_directory(directory):
+  list_to_parse = list_to_parse(directory)
+  tuple_list = tuple_list(list_to_parse)
+  parsed_map = {}
+  for item in list_to_parse:
+    filename = name_extension_tuple(item)[0]
+    extension = name_extension_tuple(item)[1]
+    metadata = metadata_for_filelike(item)
+    parsed_map[filename] = metadata
+  return parsed_map
+
