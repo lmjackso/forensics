@@ -16,6 +16,8 @@ from hachoir_metadata import *
 import os
 import sys
 
+def get_file_size(filename):
+  return getsize(filename)
 
 def metadata_map(filename):
   filename, realname = unicodeFilename(filename), filename
@@ -105,4 +107,5 @@ def parse_map_from_directory(directory):
     metadata = metadata_for_filelike(item)
     parsed_map[filename] = metadata
   return parsed_map
+
 
