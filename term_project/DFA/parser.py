@@ -1,5 +1,7 @@
-# Create your views here.
-
+'''
+This module is designed to serve to parse metadata from files into 
+an object form that is useable by the framework.
+'''
 from hachoir_core.error import HachoirError
 from hachoir_core.stream import InputIOStream
 from hachoir_parser import guessParser
