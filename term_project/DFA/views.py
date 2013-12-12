@@ -19,8 +19,8 @@ def home(request):
     path = os.getcwd()
     os.chdir(path+"/DFA/static/options")
     for f in glob.glob("*.js"):
-      #options.append(f.strip('.js'))
-      options.append(f)
+      options.append(f.strip('.js'))
+      # options.append(f)
 
     os.chdir(path)
     context['options'] = options
