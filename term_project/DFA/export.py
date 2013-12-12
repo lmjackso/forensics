@@ -27,9 +27,19 @@ def export_metadata(metadata):
 		newsheet = wbk.add_sheet(extension)
 		for name in filename_ext_list:
 			row = 0
+			#Add file to sheet of same file extension.
 			if name[1] == extension:
-				row += 1
 				col = 0
+				if row == 0:
+					tmpcol = 1
+					for name in metadata[name[0]]:
+						newsheet.write(row, tmpcol, name)
+						tmpcol += 1
+				#Add new column for each data type
 				for data in metadata[name[0]]:
-					col += 0
-					newsheet.write(row, col, str(metadata[data]))
+					if col == 0:
+						newsheet.write(row, col, name[0])
+						col += 1
+					newsheet.write(row, col, str(metadata[name[0]][data]))
+					col += 1
+				row += 1
