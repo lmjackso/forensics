@@ -4,6 +4,9 @@ from export import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 
+def home(request):
+  context={}
+  return render(request, 'DFA/index.html', context)
 
 def single(request):
   context = {}
@@ -17,6 +20,7 @@ def export(request):
     return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})
   if not 'exportname' in request.GET or not request.GET['exportname']:
     return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})  
+
   directory = request.GET['directory']
   export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
   return render(request, 'DFA/export.html', context)
