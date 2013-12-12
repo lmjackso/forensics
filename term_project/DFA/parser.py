@@ -38,7 +38,7 @@ def get_text(metadata_value):
     return metadata_value.values[0].text
   return False
 
-def create_list(metadata_map)
+def create_list(metadata_map):
   keyvalue_list = []
   for k,v in metadata_map.iteritems():
     if v.values:
