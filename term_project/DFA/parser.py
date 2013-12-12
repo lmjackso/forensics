@@ -19,7 +19,7 @@ import os
 import sys
 
 def get_file_size(filename):
-  return getsize(filename)
+  return os.path.getsize(filename)
 
 def metadata_map(filename):
   filename, realname = filename, filename
@@ -47,8 +47,9 @@ def create_list(metadata_map):
   keyvalue_list = []
   for k,v in metadata_map.iteritems():
     if v.values:
-      keyvalue_list += [get_text(v), get_value(v)]
+      keyvalue_list.append([k, get_value(v)])
   return keyvalue_list
+
 
 def list_to_parse(rootdir):
   list = []
