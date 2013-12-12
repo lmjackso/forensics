@@ -12,7 +12,7 @@ import json
 def home(request):
 
   context={}
-
+  values = []
   options = []
   path = os.getcwd()
   os.chdir(path+"/DFA/static/options")
@@ -40,19 +40,38 @@ def home(request):
       metatype = request.POST['type']
       print metatype
 
-
-    values = [1, 2, 3]
-    key = "hi"
-
+	if(method == 'us_map'):
+		key = 'location'
+		for fileName in list_to_parse(directory):
+			lat = get_value(parse_map_from_directory(directory)[fileName]['latitude'])
+			long = get_value(parse_map_from_directory(directory)[fileName]['longitude'])
+			values.push([lat,long])
+	
+	elif(method == 'edge'):
+		key = 'creation'
+		for fileName in list_to_parse(directory):
+			time = get_value(parse_map_from_directory(directory)[fileName]['creation_date'])
+			values.push([time,fileName])
+	elif(metatype == 'file_size'):
+		key = 'file_size'
+		for fileName in list_to_parse(directory):
+			size = get_file_size(fileName)
+			values.push(size)
+	else:
+		key = metatype
+		for fileName in list_to_parse(directory):
+			temp = get_value(parse_map_from_directory(directory)[fileName][metatype])
+			values.push(temp)
+    
     # send name of graph representation method
-    name = 'bar'
-    graphname = 'bargraph'
+    name = method
+    graphname = method + 'graph'
 
     data = [{'key':key, 'values':values}]
     data_json = json.dumps(data)
     context['name'] = name
     context['graphname'] = graphname
-    context['data_json'] = json.dumps(data)
+    context['jsonData'] = data_json
     context['data'] = data
     return render(request, 'DFA/index.html', context)
 
