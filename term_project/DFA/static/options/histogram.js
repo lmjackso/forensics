@@ -9,23 +9,34 @@ Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
 
+var x = d3.scale.linear()
+		// used math.max to get the greatest value in the range of values
+		.domain([0, Math.max.apply(null,values)])
+		.range([0, width]);
+		//.range([0, width]);
+var formatCount = d3.format(",.0f");
+var xAxis = d3.svg.axis()
+			.scale(x)
+			.orient("bottom");
+					
 // Simplifies the given json into an array we can work with.
 var values = jsonData[0].values;
-var temp_values = [];
 $(function(){
 	if(jsonData[0].key == "creation"){
-		values.forEach(function(file){
-		var time = Date.parse(file[0]).valueOf();
-		temp_values.push(time);
-		});
-		values = temp_values;
+		var x = d3.time.scale()
+				.domain([firstDate, lastDate])
+				.range([0, width]);
+		var formatDate = d3.time.format("%d/%m/%y");
+		var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom")
+            .tickFormat(formatDate);
 	}
 });
-
 //[1, 5, 10, 3, 5, 8, 4, 12, 5, 4, 5, 6, 2, 3, 2, 5, 8, 9, 7, 10, 4, 2, 1, 10, 35, 40, 32, 36, 34, 23, 85, 81, 49, 30, 28, 58, 68, 39, 48, 1, 40]
 //var types = ['last_modification', 'mime_type', 'file_size'];
 // Formatters for counts and times (converting numbers to Dates).
-var formatCount = d3.format(",.0f")
+
     // formatTime = d3.time.format("%H:%M"),
     // formatMinutes = function(d) { return formatTime(new Date(2012, 0, 1, 0, d)); };
 
@@ -33,11 +44,7 @@ var margin = {top: 10, right: 30, bottom: 30, left: 30},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var x = d3.scale.linear()
-    // used math.max to get the greatest value in the range of values
-    .domain([0, Math.max.apply(null,values)])
-    .range([0, width])
-    //.range([0, width]);
+
 
 // Generate a histogram using twenty uniformly-spaced bins.
 var data = d3.layout.histogram()
@@ -48,11 +55,6 @@ var data = d3.layout.histogram()
 var y = d3.scale.linear()
     .domain([0, d3.max(data, function(d) { return d.y; })])
     .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom")
-  //  .tickFormat(formatMinutes);
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
