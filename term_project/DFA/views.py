@@ -23,6 +23,12 @@ def home(request):
 	os.chdir(path)
 	context['options'] = options
 
+  file_list = list_to_parse(directory)
+  files_to_parse =[]
+  for file in file_list:
+    if file.split('/')[-1][0] != '.':
+      files_to_parse.append(file)
+
 
 	if request.method == 'GET':
 		return render(request, 'DFA/index.html', context)
@@ -42,24 +48,24 @@ def home(request):
 
 		if(method == 'us_map'):
 			key = 'location'
-			for fileName in list_to_parse(directory):
+			for fileName in files_to_parse:
 				lat = get_value(parse_map_from_directory(directory)[fileName]['latitude'])
 				long = get_value(parse_map_from_directory(directory)[fileName]['longitude'])
 				values.push([lat,long])
 		
 		elif(method == 'edge'):
 			key = 'creation'
-			for fileName in list_to_parse(directory):
+			for fileName in files_to_parse:
 				time = get_value(parse_map_from_directory(directory)[fileName]['creation_date'])
 				values.push([time,fileName])
 		elif(metatype == 'file_size'):
 			key = 'file_size'
-			for fileName in list_to_parse(directory):
+			for fileName in files_to_parse:
 				size = get_file_size(fileName)
 				values.push(size)
 		else:
 			key = metatype
-			for fileName in list_to_parse(directory):
+			for fileName in files_to_parse:
 				temp = get_value(parse_map_from_directory(directory)[fileName][metatype])
 				values.push(temp)
     
