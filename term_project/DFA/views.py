@@ -3,10 +3,13 @@ from helper import *
 from export import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
+# Needed to manually create HttpResponses or raise an Http404 exception
+from django.http import HttpResponse, Http404
 import glob
 import os
 import datetime
 import json
+from django.conf import settings, os
 
 def home(request):
 
@@ -21,8 +24,6 @@ def home(request):
 
 	os.chdir(path)
 	context['options'] = options
-
-
 
 
 	if request.method == 'GET':
@@ -40,67 +41,66 @@ def home(request):
 		if 'type' in request.POST and request.POST['type']:
 			metatype = request.POST['type']
 			print metatype
-			
-		file_list = list_to_parse(directory)
-  		files_to_parse =[]
-  		for file in file_list:
-  			if file.split('/')[-1][0] != '.':
-  				files_to_parse.append(file)
+
 		list_dir = list_to_parse(directory)
 		map_dir = parse_map_from_directory(directory)
 		
 		if(method == 'us_map'):
 			key = 'location'
-			for fileName in files_to_parse:
-				lat = get_value(parse_map_from_directory(directory)[fileName]['latitude'])
-				long = get_value(parse_map_from_directory(directory)[fileName]['longitude'])
-				values.push([lat,long])
-		
-		elif(method == 'edge'):
-			key = 'creation'
-			for fileName in files_to_parse:
-				time = get_value(parse_map_from_directory(directory)[fileName]['creation_date'])
-				values.push([time,fileName])
-		elif(metatype == 'file_size'):
-			key = 'file_size'
-			for fileName in files_to_parse:
-				file = fileName.split("/")
-				fileName = file[-1]
-				lat = get_value(map_dir[fileName]['latitude'])
-				long = get_value(map_dir[fileName]['longitude'])
-				values.append([lat,long])
+			for fileName in list_dir:
+				if fileName is not None:
+					file = fileName.split("/")
+					fileName = file[-1]
+					try:
+						lat = get_value(map_dir[fileName]['latitude'])
+						long = get_value(map_dir[fileName]['longitude'])
+						values.append([lat,long])
+					except(err):
+						print "no location found"
 			
 		elif(method == 'edge'):
 			key = 'creation'
 			for fileName in list_dir:
-				file = fileName.split("/")
-				fileName = file[-1]
-				time = get_value(map_dir[fileName]['creation_date'])
-				if not time == None:
-					time = (time - datetime.datetime(1970,1,1)).total_seconds()
-					values.append([time,fileName])
+				if fileName is not None:
+					file = fileName.split("/")
+					fileName = file[-1]
+					time = get_value(map_dir[fileName]['creation_date'])
+					if time is not None:
+						time = time.strftime('%Y-%m-%d %H:%M:%S')
+						values.append([time,fileName])
 					
 		elif(metatype == 'file_size'):
 			key = 'file_size'
-			for fileName in files_to_parse:
-				size = get_file_size(fileName)
-				values.append(size)
+			for fileName in list_dir:
+				if fileName is not None:
+					size = get_file_size(fileName)
+					values.append(size)
+		elif(metatype == 'creation_date'):
+			key = metatype
+			for fileName in list_dir:
+				if fileName is not None:
+					file = fileName.split("/")
+					fileName = file[-1]
+					time = get_value(map_dir[fileName]['creation_date'])
+					if time is not None:
+						time = time.strftime('%Y-%m-%d %H:%M:%S')
+						values.append(time)
+				
 		else:
 			key = metatype
-			for fileName in files_to_parse:
-				temp = get_value(parse_map_from_directory(directory)[fileName][metatype])
-				values.push(temp)
 			for fileName in list_dir:
-				file = fileName.split("/")
-				fileName = file[-1]
-				temp = get_value(map_dir[fileName][metatype])
-				values.append(temp)
+				if(fileName is not None):
+					file = fileName.split("/")
+					fileName = file[-1]
+					temp = get_value(map_dir[fileName][metatype])
+					values.append(temp)
     
 		# send name of graph representation method
 		name = method
 		graphname = method + 'graph'
 
 		data = [{'key':key, 'values':values}]
+		#print data
 		data_json = json.dumps(data)
 		context['name'] = name
 		context['graphname'] = graphname
@@ -133,4 +133,8 @@ def comparison(request):
   #map = parse_map_from_directory(dir)
   return render(request, 'DFA/comparison.html', context)
 
-
+#This function is solely meant to pass on the JSON file. 
+def retrieveJSON(request):
+	context = {}
+	backup_path = os.path.join(settings.PROJECT_ROOT, "json_templates", "uss.json")
+	return HttpResponse(open(backup_path, 'r'),content_type = 'application/json; charset=utf8')

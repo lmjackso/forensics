@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
 	url(r'^single$', 'DFA.views.single', name='single'),
 	url(r'^comparison$', 'DFA.views.comparison', name='comparison'),
+	url(r'^uss.json$', 'DFA.views.retrieveJSON', name = 'retrieveJSON'),
 )

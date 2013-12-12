@@ -3,7 +3,7 @@
 //var jsonData = {"Key" : "Apps" , "values" : [["application/java-archive","application/java-archive","application/java-archive","image/photoshop", "image/photoshop", "image/photoshop", "video/x-pn-realvideo", "audio/s3m"]]}
 
 var values = jsonData[0].values;
-var types = ['last_modification', 'mime_type', 'file_size'];
+var types = ['creation_date', 'mime_type', 'file_size'];
 var width = 960,
     height = 500,
     radius = Math.min(width, height) / 2;
@@ -32,10 +32,16 @@ $(function(){
 		appCount = [];
 		appNames = [];
 		appNames2 = [];
+		app_type = "";
 		
 	
 	values.forEach(function(d){
-		var app_type = d.split("/",1);
+		try{
+			app_type = d.split("/",1);
+			}
+		catch(err){
+			app_type = d;
+			}
 		appDict[app_type] = (appDict[app_type] || 0) + 1;
 	});
 	

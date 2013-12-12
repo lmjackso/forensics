@@ -1,1 +1,1 @@
-var types = ['last_modification', 'mime_type', 'file_size'];
+var types = ['creation_date', 'mime_type', 'file_size'];
