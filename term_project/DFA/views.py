@@ -51,12 +51,13 @@ def home(request):
 				if fileName is not None:
 					file = fileName.split("/")
 					fileName = file[-1]
-					try:
-						lat = get_value(map_dir[fileName]['latitude'])
-						long = get_value(map_dir[fileName]['longitude'])
-						values.append([lat,long])
-					except(err):
-						print "no location found"
+					if fileName != ".DS_Store":
+						try:
+							lat = get_value(map_dir[fileName]['latitude'])
+							long = get_value(map_dir[fileName]['longitude'])
+							values.append([lat,long])
+						except(err):
+							print "no location found"
 			
 		elif(method == 'edge'):
 			key = 'creation'
@@ -64,10 +65,12 @@ def home(request):
 				if fileName is not None:
 					file = fileName.split("/")
 					fileName = file[-1]
-					time = get_value(map_dir[fileName]['creation_date'])
-					if time is not None:
-						time = time.strftime('%Y-%m-%d %H:%M:%S')
-						values.append([time,fileName])
+					if fileName != ".DS_Store":
+
+						time = get_value(map_dir[fileName]['creation_date'])
+						if time is not None:
+							time = time.strftime('%Y-%m-%d %H:%M:%S')
+							values.append([time,fileName])
 					
 		elif(metatype == 'file_size'):
 			key = 'file_size'
@@ -79,12 +82,15 @@ def home(request):
 			key = metatype
 			for fileName in list_dir:
 				if fileName is not None:
+
 					file = fileName.split("/")
 					fileName = file[-1]
-					time = get_value(map_dir[fileName]['creation_date'])
-					if time is not None:
-						time = time.strftime('%Y-%m-%d %H:%M:%S')
-						values.append(time)
+					print "this is the filename = " + fileName
+					if fileName != ".DS_Store":
+						time = get_value(map_dir[fileName]['creation_date'])
+						if time is not None:
+							time = time.strftime('%Y-%m-%d %H:%M:%S')
+							values.append(time)
 				
 		else:
 			key = metatype
@@ -92,9 +98,11 @@ def home(request):
 				if(fileName is not None):
 					file = fileName.split("/")
 					fileName = file[-1]
-					temp = get_value(map_dir[fileName][metatype])
-					values.append(temp)
-    
+					if fileName != ".DS_Store":
+
+						temp = get_value(map_dir[fileName][metatype])
+						values.append(temp)
+		
 		# send name of graph representation method
 		name = method
 		graphname = method + 'graph'
@@ -110,28 +118,28 @@ def home(request):
 		return render(request, 'DFA/index.html', context)
 
 def single(request):
-  context = {}
-  dir = "/Users/lmjackso/CMU/15-498/forensics/term_project/test_data"
-  map = parse_map_from_directory(dir)
-  return render(request, 'DFA/single.html', context)
+	context = {}
+	dir = "/Users/lmjackso/CMU/15-498/forensics/term_project/test_data"
+	map = parse_map_from_directory(dir)
+	return render(request, 'DFA/single.html', context)
 
 def export(request):
-  context = {}
-  if not 'directory' in request.GET or not request.GET['directory']:
-    return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})
-  if not 'exportname' in request.GET or not request.GET['exportname']:
-    return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})  
+	context = {}
+	if not 'directory' in request.GET or not request.GET['directory']:
+		return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})
+	if not 'exportname' in request.GET or not request.GET['exportname']:
+		return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})  
 
-  directory = request.GET['directory']
-  export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
-  return render(request, 'DFA/export.html', context)
+	directory = request.GET['directory']
+	export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
+	return render(request, 'DFA/export.html', context)
 
 
 def comparison(request):
-  context = {}
+	context = {}
 
-  #map = parse_map_from_directory(dir)
-  return render(request, 'DFA/comparison.html', context)
+	#map = parse_map_from_directory(dir)
+	return render(request, 'DFA/comparison.html', context)
 
 #This function is solely meant to pass on the JSON file. 
 def retrieveJSON(request):

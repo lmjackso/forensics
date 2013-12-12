@@ -8,16 +8,16 @@
 
 
       {% if name %}
-    <link href="/static/css/{{name}}.css" rel="stylesheet">
+    <link href="/static/options/{{name}}.css" rel="stylesheet">
 	<script type="text/javascript">var jsonData = {{ jsonData | safe }}</script>
     <script type="text/javascript" src="/static/options/{{name}}.js"></script>
 {% endif %}
 
-      <div class="jumbotron">
         {% if graphname %}
               <div class="chart"></div>
 
         {% else %}
+      <div class="jumbotron">
 
 <br>
 
@@ -27,8 +27,10 @@
           data = {{data}} <br>
           json data = {{data_json}}<br>
           {{options}}
+                </div>
+
         {% endif %}       
-      </div>
+
 
      <div class="col-md-4">
 
