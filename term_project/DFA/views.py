@@ -4,6 +4,9 @@ from export import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 
+def home(request):
+  context={}
+  return render(request, 'DFA/index.html', context)
 
 def single(request):
   context = {}
@@ -12,7 +15,7 @@ def single(request):
   return render(request, 'DFA/single.html', context)
 
 def export(request):
-	context = {}
+  context = {}
   directory = request.GET['directory']
   export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
   #return redirect('/')
