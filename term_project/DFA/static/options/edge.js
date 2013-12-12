@@ -29,6 +29,9 @@ values.forEach(function(file1){
 	});
 });
 
+if(links.length == 0){
+	alert("There are no nodes to show, please select another data set.");
+}
 var nodes = {};
 
 // Compute the distinct nodes from the links.
