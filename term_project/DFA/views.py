@@ -12,7 +12,11 @@ def single(request):
   return render(request, 'DFA/single.html', context)
 
 def export(request):
-	context = {}
+  context = {}
+  if not 'directory' in request.GET or not request.GET['directory']:
+    return redirect('/')
+  if not 'exportname' in request.GET or not request.GET['exportname']:
+    return redirect('/')    
   directory = request.GET['directory']
   export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
   #return redirect('/')
