@@ -3,10 +3,38 @@ from helper import *
 from export import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
+import glob
+import os
+
+
+import json
 
 def home(request):
+
   context={}
-  return render(request, 'DFA/index.html', context)
+
+  if request.method == 'GET':
+
+    options = []
+    path = os.getcwd()
+    os.chdir(path+"/DFA/static/options")
+    for f in glob.glob("*.js"):
+      #options.append(f.strip('.js'))
+      options.append(f)
+
+    os.chdir(path)
+    context['options'] = options
+    return render(request, 'DFA/index.html', context)
+
+  if request.method == 'POST':
+    values = [1, 2, 3]
+    key = "hi"
+
+    data = [{'key':key, 'values':values}]
+    data_json = json.dumps(data)
+    context['data_json'] = json.dumps(data)
+    context['data'] = data
+    return render(request, 'DFA/index.html', context)
 
 def single(request):
   context = {}
