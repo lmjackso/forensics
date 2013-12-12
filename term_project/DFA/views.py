@@ -14,12 +14,11 @@ def single(request):
 def export(request):
   context = {}
   if not 'directory' in request.GET or not request.GET['directory']:
-    return redirect('/')
+    return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})
   if not 'exportname' in request.GET or not request.GET['exportname']:
-    return redirect('/')    
+    return render(request, 'DFA/export.html', {'error': 'You incorrectly entered the directory!'})  
   directory = request.GET['directory']
   export_metadata(parse_map_from_directory(directory), request.GET['exportname'])
-  #return redirect('/')
   return render(request, 'DFA/export.html', context)
 
 
