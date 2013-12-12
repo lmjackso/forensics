@@ -49,13 +49,13 @@ def home(request):
 			key = 'location'
 			for fileName in list_dir:
 				if fileName is not None:
-					file = fileName.split("/")
-					fileName = file[-1]
+					testfile = fileName.split("/")
+					fileName = testfile[-1]
 					if fileName != ".DS_Store":
 						try:
 							lat = get_value(map_dir[fileName]['latitude'])
-							long = get_value(map_dir[fileName]['longitude'])
-							values.append([lat,long])
+							lon = get_value(map_dir[fileName]['longitude'])
+							values.append([lat,lon])
 						except(err):
 							print "no location found"
 			
@@ -63,8 +63,8 @@ def home(request):
 			key = 'creation'
 			for fileName in list_dir:
 				if fileName is not None:
-					file = fileName.split("/")
-					fileName = file[-1]
+					testfile = fileName.split("/")
+					fileName = testfile[-1]
 					if fileName != ".DS_Store":
 
 						time = get_value(map_dir[fileName]['creation_date'])
@@ -83,8 +83,8 @@ def home(request):
 			for fileName in list_dir:
 				if fileName is not None:
 
-					file = fileName.split("/")
-					fileName = file[-1]
+					testfile = fileName.split("/")
+					fileName = testfile[-1]
 					print "this is the filename = " + fileName
 					if fileName != ".DS_Store":
 						time = get_value(map_dir[fileName]['creation_date'])
@@ -96,8 +96,8 @@ def home(request):
 			key = metatype
 			for fileName in list_dir:
 				if(fileName is not None):
-					file = fileName.split("/")
-					fileName = file[-1]
+					testfile = fileName.split("/")
+					fileName = testfile[-1]
 					if fileName != ".DS_Store":
 
 						temp = get_value(map_dir[fileName][metatype])
