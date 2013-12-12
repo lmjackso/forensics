@@ -23,11 +23,7 @@ def home(request):
 	os.chdir(path)
 	context['options'] = options
 
-  file_list = list_to_parse(directory)
-  files_to_parse =[]
-  for file in file_list:
-    if file.split('/')[-1][0] != '.':
-      files_to_parse.append(file)
+
 
 
 	if request.method == 'GET':
@@ -45,7 +41,12 @@ def home(request):
 		if 'type' in request.POST and request.POST['type']:
 			metatype = request.POST['type']
 			print metatype
-
+			
+		file_list = list_to_parse(directory)
+  		files_to_parse =[]
+  		for file in file_list:
+  			if file.split('/')[-1][0] != '.':
+  				files_to_parse.append(file)
 		list_dir = list_to_parse(directory)
 		map_dir = parse_map_from_directory(directory)
 		
