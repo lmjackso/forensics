@@ -37,13 +37,12 @@
 
         <div class="form-group">
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
-          <select class="form-control" id="option">
-            <option>Pick</option>
+          <select class="form-control" id="method">
+            <option>Choose Graphical Representation Method</option>
           <!-- for loop here  -->
           {% for o in options %}
             <option>{{o}}</option>
           {% endfor %}
-            <option>dumb</option>
 
           </select>        
         </div>
@@ -52,11 +51,7 @@
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
           <select class="form-control" id="change">
           <!-- for loop here  -->
-            <option>hi my name is this is pretty long</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <option>Select Data Type (after choosing method)</option>
           </select>        
         </div>
 
@@ -64,19 +59,34 @@
       </form>
 </div>
 
+
+
 {% endblock base-content %}
 
 {% block base-scripts %}
 
-<script type='text/javascript'>
-//var data = {{data_json | safe}}
-var jsonData = {{data_json | safe}}
+<script type="text/javascript">
+$(document).ready(function () {
+  alert('hi');
 
-//alert(data)
+    $("#method").change(function () {
+    alert($('#method').val())
+
+    $.getScript("/static/options/"+$("#method").val()+".js", function(){
+
+       alert("Script loaded and executed.");
+       $("#change").find('option').remove().end();
+      for (var i=0; i<types.length; i++) {
+        $('#change').append(new Option(types[i], types[i]));
+
+      }
+
+       // Here you can use anything you defined in the loaded script
+    });
+  });
+
+});
 </script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<!-- <script src="/static/js/bar.js" type="text/javascript"></script> -->
-
 
 
 {% endblock base-scripts %}
