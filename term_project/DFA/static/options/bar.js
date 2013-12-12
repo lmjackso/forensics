@@ -3,8 +3,8 @@
 //var types = ['last_modification', 'mime_type', 'file_size'];
 var data = jsonData[0].values
 
-alert('you are here')
-alert(data)
+//alert('you are here')
+//alert(data)
 
 var x = d3.scale.linear()
     .domain([0, d3.max(data)])

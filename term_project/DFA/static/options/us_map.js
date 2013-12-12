@@ -10,19 +10,12 @@ var projection = d3.geo.albersUsa()
 
 var path = d3.geo.path()
     .projection(projection);
-	
-var zoom = d3.behavior.zoom()
-    .translate(projection.translate())
-    .scale(projection.scale())
-    .scaleExtent([height, 8 * height])
-    .on("zoom", zoomed);
 
-var svg = d3.select("body").insert("svg:svg", "h2")
+var svg = d3.select(".chart").insert("svg:svg", "h2")
     .attr("width", width)
     .attr("height", height);
 	
 var g = svg.append("g")
-    .call(zoom);
 
 	
 var circles = svg.append("svg:g")
@@ -40,8 +33,7 @@ d3.json("uss.json", function(error, us) {
 	.selectAll("path")
 		.data(topojson.feature(us, us.objects.subunits4).features)
     .enter().append("path")
-      .attr("d", path)
-	  .on("click", clicked);
+      .attr("d", path);
 
 });
 
@@ -58,26 +50,3 @@ $(function() {
 		}	
 	}
 });
-
-
-
-function clicked(d) {
-  var centroid = path.centroid(d),
-      translate = projection.translate();
-
-  projection.translate([
-    translate[0] - centroid[0] + width / 2,
-    translate[1] - centroid[1] + height / 2
-  ]);
-
-  zoom.translate(projection.translate());
-
-  g.selectAll("path").transition()
-      .duration(700)
-      .attr("d", path);
-}
-
-function zoomed() {
-  projection.translate(d3.event.translate).scale(d3.event.scale);
-  g.selectAll("path").attr("d", path);
-}

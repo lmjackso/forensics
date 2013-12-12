@@ -56,8 +56,8 @@ def home(request):
 							lat = get_value(map_dir[fileName]['latitude'])
 							lon = get_value(map_dir[fileName]['longitude'])
 							values.append([lat,lon])
-						except(err):
-							print "no location found"
+						except:
+							pass
 			
 		elif(method == 'edge'):
 			key = 'creation'
