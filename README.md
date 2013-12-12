@@ -64,6 +64,7 @@ mime_type
 longitude 
 duration
 last_modification
+creation_date
 **************************
 comment
 frame_rate
