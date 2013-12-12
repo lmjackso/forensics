@@ -16,16 +16,16 @@
 
             <div class="form-group">
               <label class="sr-only" for="directory">Path to Directory</label>
-              <input type="text" class="form-control" id="directory" placeholder="Path to Directory">
+              <input type="text" class="form-control" id="directory" name="directory" placeholder="Path to Directory">
             </div>
 
             <div class="form-group">
               <label class="sr-only" for="exportname">Path to Directory</label>
-              <input type="text" class="form-control" id="exportname" placeholder="Export File Name">
+              <input type="text" class="form-control" id="exportname" name="exportname" placeholder="Export File Name">
             </div>
 
 
-            <button type="submit" class="btn btn-default">Create Graph</button>
+            <button type="submit" class="btn btn-default">Export Metadata</button>
             {% csrf_token %}
           </form>
 

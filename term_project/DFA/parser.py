@@ -22,21 +22,26 @@ def get_file_size(filename):
   return getsize(filename)
 
 def metadata_map(filename):
-  filename, realname = unicodeFilename(filename), filename
+  filename, realname = filename, filename
+  test= filename.split('/')
+  if test[-1][0]==u'.' or test[-1][0] == '.':
+    return None
   parser = createParser(filename)
 
   # See what keys you can extract
-  return metadata.extractMetadata(parser)._Metadata__data
+  if parser:
+    return metadata.extractMetadata(parser)._Metadata__data
+  return None
 
 def get_value(metadata_value):
   if metadata_value.values:
     return metadata_value.values[0].value
-  return False
+  return None
 
 def get_text(metadata_value):
   if metadata_value.values:
     return metadata_value.values[0].text
-  return False
+  return None
 
 def create_list(metadata_map):
   keyvalue_list = []
@@ -67,11 +72,12 @@ def hello(tuple_list)
 def list_to_parse(rootdir):
   list = []
   for root, subFolders, files in os.walk(rootdir):
-    list += [root + files]
+    for file in files:
+      list += [root +'/'+ file]
   return list
 
 def get_extension(filename):
-  name, extension = os.path.splittext(filename)
+  name, extension = os.path.splitext(filename)
   return extension
 
 def name_extension_tuple(filename):
@@ -101,12 +107,16 @@ def metadata_for_filelike(filelike):
 
 def parse_map_from_directory(directory):
   list_to_be_parsed = list_to_parse(directory)
+  print list_to_be_parsed
   parsed_map = {}
   for item in list_to_be_parsed:
     filename = name_extension_tuple(item)[0]
     extension = name_extension_tuple(item)[1]
-    metadata = metadata_for_filelike(item)
-    parsed_map[filename] = metadata
+    metadata = metadata_map(item)
+    if metadata:
+      parsed_map[filename] = metadata
+    print filename
+    print extension
   return parsed_map
 
 
