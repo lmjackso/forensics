@@ -1,3 +1,6 @@
+var types = [['latitude', 'longitude']];
+var values = jsonData[0].values;
+
 var width = 960,
     height = 500;
 
@@ -43,10 +46,10 @@ d3.json("uss.json", function(error, us) {
 });
 
 $(function() {
-	for(x in jsonData.values){
+	for(x in values){
 		//points[0] is latitude and points[1] is longitude
 		try{
-		var location = [+jsonData.values[x][1], +jsonData.values[x][0]];
+		var location = [+values[x][1], +values[x][0]];
 		//positions.push(projection(location));
 		svg.append("circle").attr("id", "circles").attr("r",10).attr("transform", function() {return "translate(" + projection(location) + ")";});
 		}
