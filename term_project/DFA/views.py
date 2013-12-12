@@ -5,8 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.shortcuts import render_to_response
 import glob
 import os
-
-
+import datetime
 import json
 
 def home(request):
@@ -52,14 +51,16 @@ def home(request):
 				long = get_value(map_dir[fileName]['longitude'])
 				values.append([lat,long])
 			
-		
 		elif(method == 'edge'):
 			key = 'creation'
 			for fileName in list_dir:
 				file = fileName.split("/")
 				fileName = file[-1]
 				time = get_value(map_dir[fileName]['creation_date'])
-				values.append([time,fileName])
+				if not time == None:
+					time = (time - datetime.datetime(1970,1,1)).total_seconds()
+					values.append([time,fileName])
+					
 		elif(metatype == 'file_size'):
 			key = 'file_size'
 			for fileName in list_dir:
@@ -83,6 +84,7 @@ def home(request):
 		context['graphname'] = graphname
 		context['jsonData'] = data_json
 		context['data'] = data
+		#return render(request, 'DFA/edge.html', context)
 		return render(request, 'DFA/index.html', context)
 
 def single(request):

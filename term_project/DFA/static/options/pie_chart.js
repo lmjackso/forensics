@@ -2,7 +2,7 @@
 //test jsonData
 //var jsonData = {"Key" : "Apps" , "values" : [["application/java-archive","application/java-archive","application/java-archive","image/photoshop", "image/photoshop", "image/photoshop", "video/x-pn-realvideo", "audio/s3m"]]}
 
-var values = jsonData.values[0];
+var values = jsonData[0].values;
 var types = ['last_modification', 'mime_type', 'file_size'];
 var width = 960,
     height = 500,

@@ -1,0 +1,26 @@
+{% extends "DFA/base.html" %}
+
+{% block graph-active %} class="active" {% endblock graph-active %}
+
+{% block base-content %}
+
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/options/pie_chart.js"></script>
+
+<div id="chart"> </div>
+
+</body>
+{% endblock %}
