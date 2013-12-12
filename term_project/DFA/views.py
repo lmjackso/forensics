@@ -13,25 +13,42 @@ def home(request):
 
   context={}
 
-  if request.method == 'GET':
-
-    options = []
-    path = os.getcwd()
-    os.chdir(path+"/DFA/static/options")
-    for f in glob.glob("*.js"):
-      options.append(f.strip('.js'))
+  options = []
+  path = os.getcwd()
+  os.chdir(path+"/DFA/static/options")
+  for f in glob.glob("*.js"):
+    options.append(f.strip('.js'))
       # options.append(f)
 
-    os.chdir(path)
-    context['options'] = options
+  os.chdir(path)
+  context['options'] = options
+
+
+  if request.method == 'GET':
     return render(request, 'DFA/index.html', context)
 
   if request.method == 'POST':
+    if 'directory' in request.POST and request.POST['directory']:
+      directory = request.POST['directory']
+
+    if 'method' in request.POST and request.POST['method']:
+      method = request.POST['method']
+
+    if 'type' in request.POST and request.POST['type']:
+      metatype = request.POST['metatype']
+
+
     values = [1, 2, 3]
     key = "hi"
 
+    # send name of graph representation method
+    name = 'bar'
+    graphname = 'bargraph'
+
     data = [{'key':key, 'values':values}]
     data_json = json.dumps(data)
+    context['name'] = name
+    context['graphname'] = graphname
     context['data_json'] = json.dumps(data)
     context['data'] = data
     return render(request, 'DFA/index.html', context)
