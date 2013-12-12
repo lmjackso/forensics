@@ -9,7 +9,7 @@ var width = 960,
     radius = Math.min(width, height) / 2;
 
 var color = d3.scale.ordinal()
-    .range(["#98abc5", "#12a123", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    .range(["#d11141", "#00b159", "#00aedb", "#f37735", "#ffc425"]);
 
 var arc = d3.svg.arc()
     .outerRadius(radius - 10)
