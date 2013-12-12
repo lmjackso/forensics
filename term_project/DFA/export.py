@@ -25,4 +25,11 @@ def export_metadata(metadata):
 	#Add new sheet for every unique extension and then add metadata to that sheet
 	for extension in unique_exts:
 		newsheet = wbk.add_sheet(extension)
-		for 
+		for name in filename_ext_list:
+			row = 0
+			if name[1] == extension:
+				row += 1
+				col = 0
+				for data in metadata[name[0]]:
+					col += 0
+					newsheet.write(row, col, str(metadata[data]))
