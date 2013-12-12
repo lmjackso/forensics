@@ -45,7 +45,14 @@ metadata_for_filelike(filelike):
 	This function attempts to retrieve a metadata map from a file whose type is not known.  It's input is a file name or I/O stream and it's output is a metadata map.
 
 parse_map_from_directory(directory):
-	This function takes a directory, and parses every file inside of it for metadata.  It then constructs a map of filenames to their corresponding metadata maps.  This map of filenames to the corresponding typed metadata maps is what this function returns.
+	This function takes a directory, and parses every file inside of it for metadata.  It then constructs a map of filenames to their corresponding metadata maps.  This map of filenames to the corresponding typed metadata maps is what this function returns.  The map of metadata maps between description of the field and the value of the field, which is originally in a Data object.  In order to retrieve the value in as a native python object, use the function get_value, provided.  
+
+	i.e.
+	directory = "User/lmjackso/Private/Test"
+	filename = "User/lmjackso/Private/Test/test.png"
+
+	get_value(parse_map_from_directory(directory)[filename]['width'])
+	>> some number of pixels, i.e. 1920
 
 /**helper**/
 filter_map_by_extension(extension,metadatamap)
