@@ -3,6 +3,8 @@ forensics
 
 15-498 term project repo.
 
+NOTE: When creating JS files within the /DFA/static/options, don't have any JS files with the same name!
+
 /**export**/
 
 export_metadata(metadata, newname)
