@@ -2,16 +2,21 @@
 
 
 var values = jsonData[0].values;
-//[[12345678,"asdf"],[12345677, "fdsa"],[12345676, "qwer"],[9876764, "trewq"],[9876766, "tree"],[123456789, "poiu"],[123456788, "lkhj"],[123456786, "mbnv"],[1234567856, "bnm"]]
+//var values = [["2003-06-16 07:57:23.235000","asdf"],["2003-06-16 07:57:28.235000", "fdsa"],["2003-06-16 07:57:20.235000", "qwer"],["2003-06-16 07:56:23.235000", "trewq"],["2004-06-16 07:57:23.235000", "tree"],["2004-06-16 07:57:13.235000", "poiu"],["2004-06-16 07:57:25.235000", "lkhj"],["2003-06-16 08:57:23.235000", "mbnv"],["2003-06-16 06:57:23.235000", "bnm"]];
 var links = [];
 var tempDict = {};
+var difference = 10000;
 
 values.forEach(function(file1){
 	values.forEach(function(file2)
 	{
 	if(file1[1] == file2[1]){ }
 	else{
-		if(Math.abs(file1[0] - file2[0]) <  5){
+		var time1 = Date.parse(file1[0]).valueOf();
+		var time2 = Date.parse(file2[0]).valueOf();
+		//alert(time1);
+		//alert(time2);
+		if(Math.abs(time1 - time2) <  difference){
 			tempDict = {"source" : file1[1], "target" : file2[1], "type" : "suit"};
 			alert(tempDict);
 			links.push(tempDict);
