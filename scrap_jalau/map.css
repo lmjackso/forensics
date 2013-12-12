@@ -1,0 +1,14 @@
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+.subunit {
+  fill: #aaa;
+}
+
+#circle{
+  fill: steelblue;
+  fill-opacity: .8;
+  stroke: #fff;
+}
