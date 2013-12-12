@@ -12,7 +12,7 @@ Array.prototype.min = function() {
 // Simplifies the given json into an array we can work with.
 var values = jsonData.values[0];
 //[1, 5, 10, 3, 5, 8, 4, 12, 5, 4, 5, 6, 2, 3, 2, 5, 8, 9, 7, 10, 4, 2, 1, 10, 35, 40, 32, 36, 34, 23, 85, 81, 49, 30, 28, 58, 68, 39, 48, 1, 40]
-var types = ['last_modification', 'mime_type', 'file_size'];
+//var types = ['last_modification', 'mime_type', 'file_size'];
 // Formatters for counts and times (converting numbers to Dates).
 var formatCount = d3.format(",.0f")
     // formatTime = d3.time.format("%H:%M"),

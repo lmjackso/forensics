@@ -1,4 +1,4 @@
-var types = [['latitude', 'longitude']];
+//var types = [['latitude', 'longitude']];
 var values = jsonData[0].values;
 
 var width = 960,
