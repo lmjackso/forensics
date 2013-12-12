@@ -30,12 +30,15 @@ def home(request):
   if request.method == 'POST':
     if 'directory' in request.POST and request.POST['directory']:
       directory = request.POST['directory']
+      print directory
 
     if 'method' in request.POST and request.POST['method']:
       method = request.POST['method']
+      print method
 
     if 'type' in request.POST and request.POST['type']:
-      metatype = request.POST['metatype']
+      metatype = request.POST['type']
+      print metatype
 
 
     values = [1, 2, 3]

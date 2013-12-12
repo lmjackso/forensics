@@ -13,4 +13,3 @@ d3.select(".chart")
     .style("width", function(d) { return x(d) + "px"; })
     .text(function(d) { return d; });
 
-alert('HII')

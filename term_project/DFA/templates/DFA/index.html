@@ -5,13 +5,15 @@
 {% block base-content %}
       <!-- Main component for a primary marketing message or call to action -->
 
-      {% if graph %}
-    <link href="/static/css/{{graph}}.css" rel="stylesheet">
-    {% endif %}
+      {% if name %}
+    <link href="/static/css/{{name}}.css" rel="stylesheet">
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/static/options/{{name}}.js"></script>
+{% endif %}
 
       <div class="jumbotron">
-        {% if data_json %}
-              <div class="chart"></div>
+        {% if graphname %}
+              <div class="{{graphname}}"></div>
 
         {% else %}
 
@@ -28,7 +30,9 @@
 
      <div class="col-md-4">
 
-      <form role="form" action="{% url 'home' %}">
+      <form role="form" action="{% url 'home' %}" method="post">
+
+        {% csrf_token %}
 
         <div class="form-group">
           <label class="sr-only" for="directory">Path to Directory</label>
@@ -65,10 +69,14 @@
 
 {% block base-scripts %}
 
+
+
 <script type="text/javascript">
 $(document).ready(function () {
 
     $("#method").change(function () {
+      $("#method").find('option').first().remove().end();
+
 
     $.getScript("/static/options/"+$("#method").val()+".js", function(){
 
