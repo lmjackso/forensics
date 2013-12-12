@@ -40,28 +40,38 @@ def home(request):
 			metatype = request.POST['type']
 			print metatype
 
+		list_dir = list_to_parse(directory)
+		map_dir = parse_map_from_directory(directory)
+		
 		if(method == 'us_map'):
 			key = 'location'
-			for fileName in list_to_parse(directory):
-				lat = get_value(parse_map_from_directory(directory)[fileName]['latitude'])
-				long = get_value(parse_map_from_directory(directory)[fileName]['longitude'])
-				values.push([lat,long])
+			for fileName in list_dir:
+				file = fileName.split("/")
+				fileName = file[-1]
+				lat = get_value(map_dir[fileName]['latitude'])
+				long = get_value(map_dir[fileName]['longitude'])
+				values.append([lat,long])
+			
 		
 		elif(method == 'edge'):
 			key = 'creation'
-			for fileName in list_to_parse(directory):
-				time = get_value(parse_map_from_directory(directory)[fileName]['creation_date'])
-				values.push([time,fileName])
+			for fileName in list_dir:
+				file = fileName.split("/")
+				fileName = file[-1]
+				time = get_value(map_dir[fileName]['creation_date'])
+				values.append([time,fileName])
 		elif(metatype == 'file_size'):
 			key = 'file_size'
-			for fileName in list_to_parse(directory):
+			for fileName in list_dir:
 				size = get_file_size(fileName)
-				values.push(size)
+				values.append(size)
 		else:
 			key = metatype
-			for fileName in list_to_parse(directory):
-				temp = get_value(parse_map_from_directory(directory)[fileName][metatype])
-				values.push(temp)
+			for fileName in list_dir:
+				file = fileName.split("/")
+				fileName = file[-1]
+				temp = get_value(map_dir[fileName][metatype])
+				values.append(temp)
     
 		# send name of graph representation method
 		name = method
