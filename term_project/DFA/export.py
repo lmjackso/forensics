@@ -8,7 +8,7 @@ This module is designed to export aforementioned metadata into an excel spreadds
 '''
 
 
-def export_metadata(metadata):
+def export_metadata(metadata, newname):
 	wbk = xlwt.workbook()
 	sheet = wbk.add_sheet()
 	filenames = metadata.viewkeys()
@@ -43,3 +43,4 @@ def export_metadata(metadata):
 					newsheet.write(row, col, str(metadata[name[0]][data]))
 					col += 1
 				row += 1
+	wbk.save(newname)

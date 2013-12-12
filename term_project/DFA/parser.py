@@ -100,10 +100,9 @@ def metadata_for_filelike(filelike):
   return metadata._Metadata__data
 
 def parse_map_from_directory(directory):
-  list_to_parse = list_to_parse(directory)
-  tuple_list = tuple_list(list_to_parse)
+  list_to_be_parsed = list_to_parse(directory)
   parsed_map = {}
-  for item in list_to_parse:
+  for item in list_to_be_parsed:
     filename = name_extension_tuple(item)[0]
     extension = name_extension_tuple(item)[1]
     metadata = metadata_for_filelike(item)
