@@ -50,25 +50,6 @@ def create_list(metadata_map):
       keyvalue_list += [get_text(v), get_value(v)]
   return keyvalue_list
 
-
-'''
-def hello(tuple_list)
-  # Turn the tags into a defaultdict
-  metalist = metadata.extractMetadata(parser, quality=QUALITY_BEST).exportPlaintext()
-  meta = defaultdict(defaultdict)
-  for item in metalist:
-      if item.endswith(':'):
-          k = item[:-1]
-      else:
-          tag, value = item.split(': ')
-          tag = tag[2:]
-          meta[k][tag] = value
-
-  print meta['Video stream #1']['Image width'] # 320 pixels
-'''
-
-
-
 def list_to_parse(rootdir):
   list = []
   for root, subFolders, files in os.walk(rootdir):
