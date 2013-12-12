@@ -80,7 +80,7 @@ $(document).ready(function () {
       alert($('#method').val());
 
 
-    $.getScript("/static/options/"+$("#method").val()+".js", function(){
+    $.getScript("/static/options/types/"+$("#method").val()+"_type.js", function(){
 
        $("#change").find('option').remove().end();
       for (var i=0; i<types.length; i++) {
