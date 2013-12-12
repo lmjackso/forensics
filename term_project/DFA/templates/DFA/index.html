@@ -4,10 +4,11 @@
 
 {% block base-content %}
       <!-- Main component for a primary marketing message or call to action -->
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 
       {% if name %}
     <link href="/static/css/{{name}}.css" rel="stylesheet">
-    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="/static/options/{{name}}.js"></script>
 {% endif %}
 
@@ -30,7 +31,7 @@
 
      <div class="col-md-4">
 
-      <form role="form" action="{% url 'home' %}" method="post">
+      <form role="form" action="{% url 'home' %}" method="post" id="graphform">
 
         {% csrf_token %}
 
@@ -42,7 +43,7 @@
         <div class="form-group">
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
           <select class="form-control" id="method" name="method">
-            <option>Choose Graphical Representation Method</option>
+            <option id='temp' value="wrong">Choose Graphical Representation Method</option>
           <!-- for loop here  -->
           {% for o in options %}
             <option>{{o}}</option>
@@ -55,7 +56,7 @@
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
           <select class="form-control" id="change" name="type">
           <!-- for loop here  -->
-            <option>Select Data Type (after choosing method)</option>
+            <option value="wrong">Select Data Type (after choosing method)</option>
           </select>        
         </div>
 
@@ -75,7 +76,8 @@
 $(document).ready(function () {
 
     $("#method").change(function () {
-      $("#method").find('option').first().remove().end();
+      $("#temp").remove().end();
+      alert($('#method').val());
 
 
     $.getScript("/static/options/"+$("#method").val()+".js", function(){
@@ -89,6 +91,31 @@ $(document).ready(function () {
        // Here you can use anything you defined in the loaded script
     });
   });
+
+  $("#graphform").submit(function(event) {
+    var directory = this.directory.value;
+    if (directory == null || directory == "") {
+      event.preventDefault();
+      alert("You must add a path to a directory.");
+      return false;
+    }
+    var method = this.method.value;
+    alert(method);
+    if (method == "wrong") {
+      event.preventDefault();
+      alert("You must pick a graphical representation method");
+      return false;
+    }
+    var type = this.method.value;
+    if (type == "wrong") {
+      event.preventDefault();
+      alert("You must pick a data type");
+      return false;
+    }
+    
+  })
+
+
 
 });
 </script>
