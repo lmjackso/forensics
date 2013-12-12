@@ -3,10 +3,6 @@ forensics
 
 15-498 term project repo.
 
-
-
-
-
 /**export**/
 
 export_metadata(metadata, newname)
