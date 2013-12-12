@@ -28,16 +28,16 @@
 
      <div class="col-md-4">
 
-      <form role="form" action {% url 'home' %}>
+      <form role="form" action="{% url 'home' %}">
 
         <div class="form-group">
-          <label class="sr-only" for="directoryInput">Path to Directory</label>
-          <input type="text" class="form-control" id="directoryInput" placeholder="Path to Directory">
+          <label class="sr-only" for="directory">Path to Directory</label>
+          <input type="text" class="form-control" name="directory" placeholder="Path to Directory">
         </div>
 
         <div class="form-group">
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
-          <select class="form-control" id="method">
+          <select class="form-control" id="method" name="method">
             <option>Choose Graphical Representation Method</option>
           <!-- for loop here  -->
           {% for o in options %}
@@ -49,7 +49,7 @@
 
         <div class="form-group" >
           <label class="sr-only" for="disabledSelect">Disabled select menu</label>
-          <select class="form-control" id="change">
+          <select class="form-control" id="change" name="type">
           <!-- for loop here  -->
             <option>Select Data Type (after choosing method)</option>
           </select>        
@@ -67,14 +67,11 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-  alert('hi');
 
     $("#method").change(function () {
-    alert($('#method').val())
 
     $.getScript("/static/options/"+$("#method").val()+".js", function(){
 
-       alert("Script loaded and executed.");
        $("#change").find('option').remove().end();
       for (var i=0; i<types.length; i++) {
         $('#change').append(new Option(types[i], types[i]));
