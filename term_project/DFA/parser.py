@@ -1,5 +1,7 @@
-# Create your views here.
-
+'''
+This module is designed to serve to parse metadata from files into 
+an object form that is useable by the framework.
+'''
 from hachoir_core.error import HachoirError
 from hachoir_core.stream import InputIOStream
 from hachoir_parser import guessParser
@@ -36,7 +38,7 @@ def get_text(metadata_value):
     return metadata_value.values[0].text
   return False
 
-def create_list(metadata_map)
+def create_list(metadata_map):
   keyvalue_list = []
   for k,v in metadata_map.iteritems():
     if v.values:
@@ -98,10 +100,9 @@ def metadata_for_filelike(filelike):
   return metadata._Metadata__data
 
 def parse_map_from_directory(directory):
-  list_to_parse = list_to_parse(directory)
-  tuple_list = tuple_list(list_to_parse)
+  list_to_be_parsed = list_to_parse(directory)
   parsed_map = {}
-  for item in list_to_parse:
+  for item in list_to_be_parsed:
     filename = name_extension_tuple(item)[0]
     extension = name_extension_tuple(item)[1]
     metadata = metadata_for_filelike(item)

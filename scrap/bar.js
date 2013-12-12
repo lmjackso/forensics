@@ -1,4 +1,5 @@
-var data = [4, 8, 15, 16, 23, 42];
+var data = jsonData.values[0];
+//[4, 8, 15, 16, 23, 42];
 
 var x = d3.scale.linear()
     .domain([0, d3.max(data)])

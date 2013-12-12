@@ -1,0 +1,33 @@
+{% extends "DFA/base.html" %}
+
+{% block export-active %} class="active" {% endblock export-active %}
+
+{% block base-content %}
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Export to Excel Format</h1>
+      </div>
+
+
+
+        <div class="col-md-4">
+
+         <form role="form" method="get" action="export">
+
+            <div class="form-group">
+              <label class="sr-only" for="directory">Path to Directory</label>
+              <input type="text" class="form-control" id="directory" placeholder="Path to Directory">
+            </div>
+
+            <div class="form-group">
+              <label class="sr-only" for="exportname">Path to Directory</label>
+              <input type="text" class="form-control" id="exportname" placeholder="Export File Name">
+            </div>
+
+
+            <button type="submit" class="btn btn-default">Create Graph</button>
+            {% csrf_token %}
+          </form>
+
+
+{% endblock base-content %}
