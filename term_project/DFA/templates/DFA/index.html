@@ -4,7 +4,8 @@
 
 {% block base-content %}
       <!-- Main component for a primary marketing message or call to action -->
-    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
 
       {% if name %}
     <link href="/static/css/{{name}}.css" rel="stylesheet">
@@ -14,7 +15,7 @@
 
       <div class="jumbotron">
         {% if graphname %}
-              <div class="{{graphname}}"></div>
+              <div class="chart"></div>
 
         {% else %}
 
@@ -77,7 +78,7 @@ $(document).ready(function () {
 
     $("#method").change(function () {
       $("#temp").remove().end();
-      alert($('#method').val());
+      //alert($('#method').val());
 
 
     $.getScript("/static/options/types/"+$("#method").val()+"_type.js", function(){
@@ -100,7 +101,7 @@ $(document).ready(function () {
       return false;
     }
     var method = this.method.value;
-    alert(method);
+    //alert(method);
     if (method == "wrong") {
       event.preventDefault();
       alert("You must pick a graphical representation method");
