@@ -1,9 +1,44 @@
 forensics
 =========
 
-15-498 term project repo.
+To Run: 
+1) Make sure you have pip installed on your system. Otherwise use your favorite package manager to install it into your system.
+2) Create a new virtual environment and activate it.
+3) Navigate to the head of the project handin directory and run 
+	pip install -r requirements.txt
+4) Navigate to term_project and run
+	python manage.py runserver
+5) Open a browser and open http://localhost:8000/
 
 NOTE: When creating JS files within the /DFA/static/options, don't have any JS files with the same name!
+
+Adding a new graphical representation:
+
+1) Pick a name for the visualization you would like to add
+2) Create two files: <name>.js and <name>_type.js
+3) In <name>_type.js, add the following line to add the types of metadata you would like your visualization to display:
+	var types = [<type 1>, <type 2>...]
+4) In <name>.js, include all of the d3 visualization code. Make sure the chart is appended to the ".chart" class.
+5) Place javascript of graphical representation into /DFA/static/options
+6) Place <filename>_type.js into DFA/static/options/types
+7) Within the main DFA directory, if you want to use manipulate meta data before passing onto your graph, simply create a new clause with the following line:
+
+elif(metatype == '<metadata>'):
+			key = metatype
+			for fileName in list_dir:
+				if fileName is not None:
+
+					testfile = fileName.split("/")
+					fileName = testfile[-1]
+					print "this is the filename = " + fileName
+					if fileName != ".DS_Store":
+						info = get_value(map_dir[fileName]['metadata'])
+						<Place info manipulation code here>
+						.
+						.
+						.
+						<Place info manipulation code above>
+	
 
 /**export**/
 
