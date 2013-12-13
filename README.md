@@ -3,7 +3,7 @@ forensics
 
 To Run: 
 1) Make sure you have pip installed on your system. Otherwise use your favorite package manager to install it into your system.
-2) Create a new virtual environment and activate it.
+2) Create a new virtual environment and activate it. (virtualenv is a good option)
 3) Navigate to the head of the project handin directory and run 
 	pip install -r requirements.txt
 4) Navigate to term_project and run
